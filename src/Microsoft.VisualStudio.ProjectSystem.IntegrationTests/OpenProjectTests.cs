@@ -33,16 +33,16 @@ namespace Microsoft.VisualStudio.ProjectSystem.VS
                 nuget.WaitForAutoRestore();
             }
 
-            using (Scope.Enter("Verify dependency nodes"))
-            {
-                var dependencies = VisualStudio.ObjectModel.Solution.SolutionExplorer.FindItemRecursive("Dependencies", expandToFind: true);
-                dependencies.Select();
-                dependencies.ExpandAll();
-                Assert.AreEqual("Dependencies", dependencies.Name);
-                var sdk = dependencies.Items.FirstOrDefault();
-                Assert.IsNotNull(sdk);
-                Assert.AreEqual("SDK", sdk.Name);
-            }
+            // using (Scope.Enter("Verify dependency nodes"))
+            // {
+            //     var dependencies = VisualStudio.ObjectModel.Solution.SolutionExplorer.FindItemRecursive("Dependencies", expandToFind: true);
+            //     dependencies.Select();
+            //     dependencies.ExpandAll();
+            //     Assert.AreEqual("Dependencies", dependencies.Name);
+            //     var sdk = dependencies.Items.FirstOrDefault();
+            //     Assert.IsNotNull(sdk);
+            //     Assert.AreEqual("SDK", sdk.Name);
+            // }
 
             using (Scope.Enter("Build Project"))
             {
