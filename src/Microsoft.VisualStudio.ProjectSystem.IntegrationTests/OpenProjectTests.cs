@@ -28,7 +28,7 @@ namespace Microsoft.VisualStudio.ProjectSystem.VS
 
             using (Scope.Enter("Wait for restore"))
             {
-                Thread.Sleep(2 * 1000);
+                Thread.Sleep(5 * 1000);
                 var nuget = VisualStudio.Get<NuGetApexTestService>();
                 nuget.WaitForAutoRestore();
             }
