@@ -321,7 +321,7 @@ function RunIntegrationTests {
   & $VSTestExe /blame /logger:$LogFileArgs /ResultsDirectory:"$IntegrationTestTempDir" /Settings:$runSettings $TestAssembly
   $integrationTestsFailed = $false
   if ((-not $?) -or ($lastExitCode -ne 0)) {
-    $integrationTestsFailed = true
+    $integrationTestsFailed = $true
   }
   
   # Kill any VS processes left over
