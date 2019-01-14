@@ -319,7 +319,7 @@ function RunIntegrationTests {
 
   Write-Host "Using $VSTestExe"
   & $VSTestExe /blame /logger:$LogFileArgs /ResultsDirectory:"$IntegrationTestTempDir" /Settings:$runSettings $TestAssembly
-  $integrationTestsFailed = false
+  $integrationTestsFailed = $false
   if ((-not $?) -or ($lastExitCode -ne 0)) {
     $integrationTestsFailed = true
   }
