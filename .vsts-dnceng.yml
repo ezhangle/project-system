@@ -5,34 +5,13 @@ phases:
   steps:
     - script: build\CIBuild.cmd -configuration $(_configuration) -prepareMachine $(_additionalArgs)
     - task: PublishBuildArtifacts@1
+      displayName: publish artifacts
       inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\log'
-        ArtifactName: '$(_configuration) unit test logs'
+        PathtoPublish: '$(Build.SourcesDirectory)\artifacts'
+        ArtifactName: '$(_configuration) artifacts'
         publishLocation: Container
       continueOnError: true
       condition: failed()
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\bin'
-        ArtifactName: '$(_configuration) bin folder'
-        publishLocation: Container
-      continueOnError: true
-      condition: failed()
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\VSSetup'
-        ArtifactName: '$(_configuration) VSSetup folder'
-        publishLocation: Container
-      continueOnError: true
-      condition: failed()
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\TestResults'
-        ArtifactName: '$(_configuration) Test Result Logs'
-        publishLocation: Container
-      continueOnError: true
-      condition: failed()
-    - task: PublishTestResults@2
       inputs:
         testRunner: 'xUnit'
         testResultsFiles: '**/*.xml' 
