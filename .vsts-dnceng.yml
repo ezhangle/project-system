@@ -4,14 +4,37 @@ phases:
     timeoutInMinutes: 90
   steps:
     - script: build\CIBuild.cmd -configuration $(_configuration) -prepareMachine $(_additionalArgs)
+
     - task: PublishBuildArtifacts@1
-      displayName: publish artifacts on failure
+      displayName: publish integration artifacts on failure
       inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)'
-        ArtifactName: '$(_configuration) artifacts'
+        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\IntegrationTestTemp'
+        ArtifactName: 'integration artifacts'
+        parallel: true
         publishLocation: Container
       continueOnError: true
       condition: failed()
+
+    - task: PublishBuildArtifacts@1
+      displayName: publish binary logs on failure
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\log'
+        ArtifactName: 'binary logs'
+        parallel: true
+        publishLocation: Container
+      continueOnError: true
+      condition: failed()
+      
+    - task: PublishBuildArtifacts@1
+      displayName: publish test results folder on failure
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)\TestResults'
+        ArtifactName: 'test results'
+        parallel: true
+        publishLocation: Container
+      continueOnError: true
+      condition: failed()
+
     - task: PublishTestResults@2
       displayName: upload XML test results
       inputs:
