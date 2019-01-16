@@ -5,13 +5,15 @@ phases:
   steps:
     - script: build\CIBuild.cmd -configuration $(_configuration) -prepareMachine $(_additionalArgs)
     - task: PublishBuildArtifacts@1
-      displayName: publish artifacts
+      displayName: publish artifacts on failure
       inputs:
         PathtoPublish: '$(Build.SourcesDirectory)\artifacts'
         ArtifactName: '$(_configuration) artifacts'
         publishLocation: Container
       continueOnError: true
       condition: failed()
+    - task: PublishTestResults@2
+      displayName: upload XML test results
       inputs:
         testRunner: 'xUnit'
         testResultsFiles: '**/*.xml' 
