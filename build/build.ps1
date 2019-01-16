@@ -363,6 +363,8 @@ function RunIntegrationTests {
   UninstallVSIXes $rootSuffix
   
   if ($integrationTestsFailed) {
+    # Copy screenshots and video files on failure
+    Copy-Item -Path $IntegrationTestTempDir -Recurse -Destination $TestResultsDir -Container
     throw "Aborting after integration test failure."
   }
 }
