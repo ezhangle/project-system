@@ -7,7 +7,7 @@ phases:
     - task: PublishBuildArtifacts@1
       displayName: publish artifacts on failure
       inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\artifacts'
+        PathtoPublish: '$(Build.SourcesDirectory)\artifacts\$(_configuration)'
         ArtifactName: '$(_configuration) artifacts'
         publishLocation: Container
       continueOnError: true
